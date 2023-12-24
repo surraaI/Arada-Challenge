@@ -18,6 +18,10 @@ body {
     opacity: 0.9;
 }
 
+#profileheading {
+    color: #28c7a7;
+}
+
 @media screen and (max-width:500px) {
     input,
     #continuebtn {
