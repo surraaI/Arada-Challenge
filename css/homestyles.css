@@ -19,5 +19,13 @@ footer{
     bottom:0;
     max-width:100%;
 }
-
+@media (max-width: 767px) {
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+  
     
