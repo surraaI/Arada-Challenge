@@ -7,6 +7,7 @@
     <title>profile</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="TS/script.js" defer></script>
 </head>
 
 <body class="container">
@@ -17,14 +18,16 @@
     <main class="container d-flex flex-column align-items-center mb-5">
         <h3>Choose Avatar</h3>
         <button class="rounded-circle bn p-4"><img src="images/manAvatar.png" alt="manAvatar"></button>
-        <form action="continue">
+        <form id="fillProfile">
             <label for="full-name" class="my-3 d-block">Full name</label>
-            <input type="name" name="full-name" id="full-name" placeholder="Fenet Girma" required>
+            <input type="name" name="name" id="full-name" placeholder="Fenet Girma" required>
             <label for="user-name" class="my-3 d-block">User-name</label>
             <input type="name" name="user-name" id="user-name" placeholder="@fenetgirma" required>
-            <label class="my-3 d-block" for="date-of-birth">date of birth</label>
-            <input type="date" name="date" id="date-of-birth" placeholder="27/10/2002" required>
-            <button class="btn bn d-block my-5 rounded" id="continuebtn">continue</button>
+            <label class="my-3 d-block" for="age">age</label>
+            <input type="number" name="age" id="age" placeholder="30" required>
+            <label class="my-3 d-block" for="phoneNo">phoneNo</label>
+            <input type="number" name="phoneNo" id="phoneNo" placeholder="+251..." required>
+            <button class="btn bn d-block my-5 rounded" id="continuebtn">submit</button>
         </form>
     </main>
     <footer>

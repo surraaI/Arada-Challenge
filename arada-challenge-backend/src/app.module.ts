@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -6,10 +6,11 @@ import { UsersModule } from './users/users.module';
 import { ChallengesModule } from './challenges/challenges.module';
 import { PointsModule } from './points/points.module';
 import { ReportsModule } from './reports/reports.module';
-
+// import { CorsModule } from '@nestjs/platform-express';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
+import * as cors from 'cors';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/arada-challenge-db'),
@@ -27,4 +28,8 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(cors()).forRoutes('*');
+  }
+}

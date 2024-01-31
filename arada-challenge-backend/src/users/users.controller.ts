@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -37,5 +40,17 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
+  }
+  @Patch('fillProfile:id')
+  updateProfile(@Req() request: Request, @Body() updateDto: UpdateUserDto) {
+    const updatedUser = this.usersService.fillProfile(request, updateDto);
+    return updatedUser;
+  }
+  @Get('extractToken')
+  extractToken(@Req() request: Request) {
+    // Call the extractToken method from the UsersService
+    return this.usersService.extractUserIdFromRequest(request);
+
+    // Send the result in the response
   }
 }

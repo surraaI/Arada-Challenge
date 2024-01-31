@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 import { Role } from '../../auth/enums/role.enum';
+import { Challenge } from '../../challenges/entities/challenge.entity';
 
 export type UserDocument = User & Document;
 
@@ -24,11 +25,18 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop({ default: 0 })
+  @Prop({ default: 100, index: true  })
   points: number;
 
   @Prop()
   avatar: string;
+
+  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Challenge' }] })
+  challenges: Challenge[];
+
+  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: 'Notification' }] })
+  notifications: Notification[];
+
   @Prop({ default: [Role.User] }) // Assign "user" role by default
   roles: Role[];
 }

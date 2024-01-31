@@ -2,13 +2,22 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/users.schema';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
+import { Role } from 'src/auth/enums/role.enum';
+import { jwtConstants } from '../auth/constants';
+import { Model } from 'mongoose';
+import { Request } from 'express';
+import * as request from 'supertest';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private jwtService: JwtService,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const { email, password, confirm_password, ...rest } = createUserDto;
@@ -30,9 +39,12 @@ export class UsersService {
         ...rest,
       });
 
-      // Validation code here if needed
+      const userr = await user.save();
+      const token = this.jwtService.sign({
+        user: userr
+      });
 
-      return user.save();
+      return { token };
     } catch (error) {
       throw new HttpException(
         'Failed to create user',
@@ -40,7 +52,6 @@ export class UsersService {
       );
     }
   }
-
 
   async logout(userId: string) {
     // Perform any necessary logout actions here
@@ -84,12 +95,9 @@ export class UsersService {
   deleteUser(id: string) {
     return this.userModel.findByIdAndDelete(id);
   }
-  async createAdmin(createUserDto: CreateUserDto) {
-    const { email, password, confirm_password, ...rest } = createUserDto;
 
-    if (password !== confirm_password) {
-      throw new HttpException('Passwords do not match', HttpStatus.BAD_REQUEST);
-    }
+  async createAdmin(createUserDto: CreateUserDto) {
+    const { email, password } = createUserDto;
 
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
@@ -97,11 +105,10 @@ export class UsersService {
     }
 
     try {
-      const hashedPassword = await bcrypt.hash(password, 10);
       const user = new this.userModel({
         email,
-        password: hashedPassword,
-        ...rest,
+        password,
+        roles: [Role.Admin]
       });
 
       // Validation code here if needed
@@ -114,5 +121,67 @@ export class UsersService {
       );
     }
   }
+  async assignPoints(userId: string, points: number): Promise<User> {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    user.points += points;
+    return user.save();
+  }
 
-}
+  async getLeaderboard(): Promise<User[]> {
+    return this.userModel.find().sort({ points: -1 }).exec();
+  }
+  async fillProfile(
+    request: Request,
+    profileData: UpdateUserDto,
+  ): Promise<User> {
+    try {
+      const userId = this.extractUserIdFromRequest(request);
+      const user = await this.userModel.findByIdAndUpdate(userId, profileData, {
+        new: true,
+      });
+  
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+  
+      return user;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to update user profile',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+ 
+  async extractUserIdFromRequest(request: Request): Promise<string> {
+    if (!request) {
+      throw new Error('Invalid request ');
+    } else if (request && !request.headers) {
+      ('or headers missing');
+    }
+    const authorizationHeader = request.headers['authorization'];
+  
+    if (!authorizationHeader) {
+      throw new HttpException(
+        'Authorization header not found',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+  
+    const [bearer, token] = authorizationHeader.split(' ');
+  
+    if (bearer !== 'Bearer' || !token) {
+      throw new HttpException(
+        'Invalid authorization header',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    try {
+      const decodedToken: any = jwt.verify(token, jwtConstants.secret);
+      return decodedToken.user;
+    } catch (error) {
+      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+    }}}
