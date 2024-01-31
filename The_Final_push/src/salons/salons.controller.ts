@@ -6,6 +6,8 @@ import { Salon } from './interfaces/salon.interface';
 import { diskStorage } from 'multer';
 import { Response } from 'express';
 import { getSalonFilterDto } from './dto/filter-salon.dto';
+import { Role } from 'src/auth/enums/role.enum';
+import { RolesGuard } from 'src/auth/roles.guards';
 
 
 
@@ -29,6 +31,7 @@ export class SalonsController {
         return this.salonService.update(id,updateSalonDto)
     }
 
+   
     @Delete(':id')
     delete(@Param('id') id):Promise<Salon>{
         return this.salonService.delete(id)
