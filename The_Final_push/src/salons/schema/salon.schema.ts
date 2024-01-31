@@ -27,8 +27,15 @@ export const SalonSchema =new mongoose.Schema({
     },
     points:{
         type: Number
+    },
+    likes:{
+        type: Number,
+        default: 0
+    },
+    Reports:{
+        type: Number,
+        default: 0
     }
-   
 
 })
 
