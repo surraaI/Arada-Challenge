@@ -1,0 +1,110 @@
+Feven, [1/30/2024 12:10 PM]
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arada Challenges</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="TS/script.js" defer></script>
+</head>
+
+<body class="bg-[#181A20] p-6 text-white gap-10 flex flex-col">
+    <div class="flex items-center gap-5">
+        <svg class="" width="11" height="21" viewBox="0 0 11 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M8.513 20.4185C8.29513 20.4192 8.07987 20.3712 7.88303 20.2778C7.68618 20.1844 7.51276 20.0481 7.3755 19.8789L0.331753 11.1289C0.117259 10.868 0 10.5407 0 10.2029C0 9.86508 0.117259 9.53777 0.331753 9.27683L7.62342 0.526826C7.87095 0.22901 8.22666 0.0417247 8.61228 0.00617094C8.9979 -0.0293828 9.38185 0.0897075 9.67967 0.337243C9.97748 0.584778 10.1648 0.940483 10.2003 1.3261C10.2359 1.71173 10.1168 2.09568 9.86925 2.39349L3.3505 10.2102L9.6505 18.0268C9.82883 18.2409 9.94211 18.5016 9.97693 18.778C10.0118 19.0544 9.96667 19.335 9.84701 19.5866C9.72734 19.8382 9.53811 20.0503 9.3017 20.1977C9.06529 20.3451 8.79159 20.4217 8.513 20.4185Z"
+            fill="#28C7A7" />
+    </svg>
+
+        <h2 class="text-2xl">Login</h2>
+    </div>
+
+    <form id="loginForm" class="flex flex-col self-center">
+        <div class="flex flex-col">
+            <label for="email" class="">email</label>
+            <input id="email" class="shadow appearance-none border rounded w-80 h-11 text-gray-700 leading-tight focus:outline-none focus:shadow-outline py-2 px-3" type="email" placeholder="fenucan@gmail.com" name="email" required>
+        </div>
+        <div class="flex flex-col">
+            <label for="password" class="">Password </label>
+            <input id="password" class="shadow appearance-none border rounded w-80 h-11 text-gray-700 leading-tight focus:outline-none focus:shadow-outline py-2 px-3" type="password" placeholder="*********" name="password" minlength="8" required>
+        </div>
+        <div class="flex items-center gap-4  justify-center">
+
+            <svg class="" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="path-1-inside-1_1_1071" fill="white">
+                    <rect width="18" height="18" rx="2" />
+                </mask>
+                <rect width="18" height="18" rx="2" stroke="#28C7A7" stroke-width="8" mask="url(#path-1-inside-1_1_1071)" />
+            </svg>
+            <h4 class="p-6">Remember Me</h4>
+            <div id="error-message"></div>
+
+        </div>
+
+        <div class="">
+            <p class="text-[#28C7A7] flex justify-center">Forgot Password</p>
+        </div>
+        <div class="mt-8 flex justify-center items-center">
+            <button class="text-primarycolor text-base font-medium ml-2 p-3 btn">Log in</button>
+        </div>
+
+    </form>
+
+
+
+    <div class="flex flex-col justify-center self-center gap-4">
+        <p class="flex justify-center">or continue with</p>
+
+        <div class="flex gap-4">
+            <svg class="continuewith__icons" width="108" height="56" viewBox="0 0 108 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" fill="white" />
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" stroke="#D8DADC" />
+            <path
+                d="M57.3822 21.8541C56.2662 21.8541 55.949 22.3491 55.949 23.4404V25.2415H58.9173L58.6248 28.1592H55.9484V37H52.3963V28.1586H50V25.2409H52.3974V23.4904C52.3974 20.5469 53.5775 19 56.8878 19C57.5982 19 58.4482 19.0562 58.9556 19.1271V21.8665"
+                fill="#3C5A99" />
+        </svg>
+            <svg class="continuewith__icons" width="108" height="56" viewBox="0 0 108 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" fill="white" />
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" stroke="#D8DADC" />
+            <g clip-path="url(#clip0_1_226)">
+                <path
+                    d="M63.1739 27.7105C63.1739 26.9317 63.112 26.3633 62.9782 25.7739H54.2724V29.2893H59.3825C59.2795 30.1629 58.7232 31.4786 57.4868 32.3627L57.4695 32.4804L60.2221 34.6589L60.4128 34.6784C62.1642 33.0258 63.1739 30.5945 63.1739 27.7105"
+                    fill="#4285F4" />
+                <path
+                    d="M54.2724 36.9729C56.7759 36.9729 58.8776 36.1308 60.4128 34.6783L57.4868 32.3627C56.7038 32.9205 55.6529 33.31 54.2724 33.31C51.8204 33.31 49.7392 31.6575 48.9974 29.3735L48.8886 29.383L46.0264 31.6459L45.989 31.7522C47.5138 34.8467 50.6458 36.9729 54.2724 36.9729Z"
+                    fill="#34A853" />
+                <path
+                    d="M48.9974 29.3735C48.8017 28.7841 48.6884 28.1525 48.6884 27.5C48.6884 26.8474 48.8017 26.2159 48.9871 25.6264L48.9819 25.5009L46.0839 23.2016L45.989 23.2477C45.3606 24.5318 45 25.9738 45 27.5C45 29.0262 45.3606 30.4681 45.989 31.7522L48.9974 29.3735"
+                    fill="#FBBC05" />
+                <path
+                    d="M54.2724 21.69C56.0135 21.69 57.188 22.4583 57.8577 23.1004L60.4746 20.4901C58.8674 18.9639 56.7759 18.0272 54.2724 18.0272C50.6458 18.0272 47.5138 20.1533 45.989 23.2477L48.9871 25.6265C49.7392 23.3425 51.8204 21.69 54.2724 21.69"
+                    fill="#EB4335" />
+            </g>
+            <defs>
+                <clipPath id="clip0_1_226">
+                    <rect x="45" y="18" width="18.1739" height="19" rx="9.08696" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+
+            <svg class="continuewith__icons" width="108" height="56" viewBox="0 0 108 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" fill="white" />
+            <rect x="0.5" y="0.5" width="107" height="55" rx="9.5" stroke="#D8DADC" />
+            <path
+                d="M59.8169 28.534C59.8081 26.9008 60.537 25.668 62.0122 24.7601C61.1868 23.563 59.9399 22.9043 58.2934 22.7753C56.7348 22.6506 55.0313 23.6965 54.4078 23.6965C53.7492 23.6965 52.2389 22.8198 51.0535 22.8198C48.6036 22.8598 46 24.8002 46 28.7477C46 29.9137 46.2107 31.1182 46.6322 32.3614C47.1942 33.9947 49.2226 38 51.3389 37.9332C52.4453 37.9065 53.2268 37.1366 54.6669 37.1366C56.063 37.1366 56.7875 37.9332 58.0212 37.9332C60.155 37.9021 61.9902 34.2617 62.5259 32.6239C59.6633 31.2577 59.8169 28.6186 59.8169 28.534V28.534ZM57.3319 21.2265C58.5305 19.7846 58.4207 18.4717 58.3856 18C57.3275 18.0623 56.1026 18.7299 55.4045 19.5532C54.6361 20.4344 54.1839 21.5247 54.2805 22.753C55.4264 22.842 56.4714 22.2457 57.3319 21.2265V21.2265Z"
+                fill="black" />
+        </svg>
+        </div>
+    </div>
+
+    <div class="flex justify-center gap-3">
+        <p>Don't have an account?</p>
+        <p class="text-[#28C7A7] ">Sign Up</p>
+    </div>
+
+</body>
+
+</html>
