@@ -133,12 +133,8 @@ export class UsersService {
   async getLeaderboard(): Promise<User[]> {
     return this.userModel.find().sort({ points: -1 }).exec();
   }
-  async fillProfile(
-    request: Request,
-    profileData: UpdateUserDto,
-  ): Promise<User> {
+  async fillProfile(userId, profileData: UpdateUserDto): Promise<User> {
     try {
-      const userId = this.extractUserIdFromRequest(request);
       const user = await this.userModel.findByIdAndUpdate(userId, profileData, {
         new: true,
       });

@@ -155,7 +155,7 @@ async function sendPatchRequest(token: string | null, id: string) {
     };
 
     // Send the PATCH request to update the profile
-    const response = await fetch(`http://localhost:3001/fillProfile/${id}`, requestOptions);
+    const response = await fetch(`http://localhost:3001/users/${id}`, requestOptions);
     const data = await response.json();
     console.log('Response:', data);
   } catch (error) {
@@ -181,7 +181,7 @@ async function extractTokenAndSendPatchRequest() {
       console.log('Response:', extractResponse);
       const extractData = await extractResponse.json();
       console.log('Data:', extractData);
-      const id = extractData.id;
+      const id = extractData._id;
       console.log('Extracted ID:', id);
       await sendPatchRequest(token, id);
     }

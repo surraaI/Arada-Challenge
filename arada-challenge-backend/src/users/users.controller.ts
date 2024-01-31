@@ -34,18 +34,18 @@ export class UsersController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateUser(id, updateUserDto);
+    return this.usersService.fillProfile(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.deleteUser(id);
   }
-  @Patch('fillProfile:id')
-  updateProfile(@Req() request: Request, @Body() updateDto: UpdateUserDto) {
-    const updatedUser = this.usersService.fillProfile(request, updateDto);
-    return updatedUser;
-  }
+  // @Patch('fillProfile/:id')
+  // updateProfile(@Req() request: Request, @Body() updateDto: UpdateUserDto) {
+  //   const updatedUser = this.usersService.fillProfile(request, updateDto);
+  //   return updatedUser;
+  // }
   @Get('extractToken')
   extractToken(@Req() request: Request) {
     // Call the extractToken method from the UsersService

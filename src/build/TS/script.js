@@ -153,7 +153,7 @@ function sendPatchRequest(token, id) {
                 body: JSON.stringify(profileData),
             };
             // Send the PATCH request to update the profile
-            const response = yield fetch(`http://localhost:3001/fillProfile/${id}`, requestOptions);
+            const response = yield fetch(`http://localhost:3001/users/${id}`, requestOptions);
             const data = yield response.json();
             console.log('Response:', data);
         }
@@ -180,7 +180,7 @@ function extractTokenAndSendPatchRequest() {
                 console.log('Response:', extractResponse);
                 const extractData = yield extractResponse.json();
                 console.log('Data:', extractData);
-                const id = extractData.id;
+                const id = extractData._id;
                 console.log('Extracted ID:', id);
                 yield sendPatchRequest(token, id);
             }
