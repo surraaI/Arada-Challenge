@@ -74,8 +74,8 @@ export class AuthController {
   //   return this.authService.deleteAllUsers();
   // }
 
-  // @Roles(Role.Admin)
-  // @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
   @Post('createAdmin')
   createAdmin(@Body() createUserDto: CreateUserDto) {
     return this.authService.createAdmin(createUserDto);

@@ -1,48 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import {Challenge} from './interfaces/challenge.interface'
-import {Model} from 'mongoose'
-import {InjectModel} from '@nestjs/mongoose'
-import { CreateChallengesDto } from './dto/create-challenge.dto';
-import { getChallengesFilterDto } from './dto/filter-challenge.dto';
+import { CreateChallengeDto } from './dto/create-challenge.dto';
+import { UpdateChallengeDto } from './dto/update-challenge.dto';
 
 @Injectable()
 export class ChallengesService {
-    constructor(@InjectModel('Challenge') private readonly challengeModel:Model<Challenge>){}
-   
-    async getChallenges(filterDto:getChallengesFilterDto):Promise<Challenge[]>{
-        let options={}
-        const {challenges}=filterDto
-        console.log(challenges)
-        if (challenges){
-            options={
-                challenges:challenges
-            }
-        }
-        return await this.challengeModel.find(options);
-    }
+  create(createChallengeDto: CreateChallengeDto) {
+    return 'This action adds a new challenge';
+  }
 
-    async getOne(id:string):Promise<Challenge>{
-        return await this.challengeModel.findOne({_id:id});
-    }
+  findAll() {
+    return `This action returns all challenges`;
+  }
 
-    async create(challenge:CreateChallengesDto,path:string):Promise<Challenge>{
-        const newChallenge=new this.challengeModel(challenge);
-        console.log(newChallenge)
-        newChallenge.picturePath=path 
-        return await newChallenge.save()
-    }
+  findOne(id: number) {
+    return `This action returns a #${id} challenge`;
+  }
 
-    async delete(id:string):Promise<Challenge>{
-        return await this.challengeModel.findByIdAndDelete(id);
-    }
+  update(id: number, updateChallengeDto: UpdateChallengeDto) {
+    return `This action updates a #${id} challenge`;
+  }
 
-    async update (id:string,challenge:Challenge):Promise<Challenge>{
-        return await this.challengeModel.findByIdAndUpdate(id,challenge,{new:true})
-    }
-    async deleteAll():Promise<any>{
-        return await this.challengeModel.deleteMany({})
-
-    }
-
-
+  remove(id: number) {
+    return `This action removes a #${id} challenge`;
+  }
 }

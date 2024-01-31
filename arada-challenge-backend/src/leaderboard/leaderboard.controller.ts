@@ -1,13 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { LeaderboardService } from './leaderboard.service';
-import { User } from '../users/schemas/users.schema';
+import { Users } from '../users/schemas/users.schema';
 
 @Controller('leaderboard')
 export class LeaderboardController {
   constructor(private readonly leaderboardService: LeaderboardService) {}
 
   @Get()
-  async findAll(): Promise<User[]>{
+  async findAll(): Promise<Users[]>{
     return this.leaderboardService.findAll();
   }
 }

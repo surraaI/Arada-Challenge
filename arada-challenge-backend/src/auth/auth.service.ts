@@ -10,9 +10,6 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UpdateUserDto } from '../users/dto/update-user.dto';
 import { User } from 'src/users/schemas/users.schema';
-import { getChallengesFilterDto } from '../challenges/dto/filter-challenge.dto';
-import { Role } from './enums/role.enum';
-import { Roles } from './roles.decorators';
 
 @Injectable()
 export class AuthService {
@@ -27,13 +24,12 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<{ token: string }> {
     const userr = await this.usersService.findOne(email);
-    if (!userr) {
-      throw new UnauthorizedException('Invalid email');
-    } else if (!(await bcrypt.compare(password, userr.password))) {
-      throw new UnauthorizedException('Wrong password');
+    if (!userr || !(await bcrypt.compare(password, userr.password))) {
+      throw new UnauthorizedException('Invalid email or password');
     }
     const token = this.jwtService.sign({
-      user: userr
+      id: userr.id,
+      roles: userr.roles,
     });
     return { token };
   }
@@ -67,7 +63,7 @@ export class AuthService {
   }
 
   async createAdmin(createUserDto: CreateUserDto): Promise<{ token: string }> {
-    const { email, password, confirm_password } = createUserDto;
+    const { email, password } = createUserDto;
 
     const existingUser = await this.usersService.findOne(email);
     if (existingUser) {
@@ -81,18 +77,15 @@ export class AuthService {
     if (!this.isValidPassword(password)) {
       throw new BadRequestException('Invalid password');
     }
-    if (password !== confirm_password) {
-      throw new BadRequestException(`passwords do not match`);
-    
-}
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const userr = await this.usersService.createAdmin({
       ...createUserDto,
       password: hashedPassword,
-      roles: [Role.Admin]
     });
     const token = this.jwtService.sign({
-      user: userr
+      id: userr.id,
+      roles: userr.roles,
     });
     return { token };
   }
